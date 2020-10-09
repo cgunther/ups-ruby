@@ -132,6 +132,7 @@ module UPS
           address << state
           address << postal_code
           address << country
+          address << Element.new('ResidentialAddressIndicator') if opts[:residential_address]
         end
       end
     end

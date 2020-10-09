@@ -114,4 +114,18 @@ describe UPS::Builders::AddressBuilder do
       end
     end
   end
+
+  describe 'residential address' do
+    it 'is not a residential address by default' do
+      address = UPS::Builders::AddressBuilder.new(address_line_1: 'Googleplex', city: 'Mountain View', state: 'California', postal_code: '94043', country: 'US')
+
+      expect(address.to_xml.locate('ResidentialAddressIndicator')).must_equal([])
+    end
+
+    it 'is indicates when specified as a residential address' do
+      address = UPS::Builders::AddressBuilder.new(address_line_1: 'Googleplex', city: 'Mountain View', state: 'California', postal_code: '94043', country: 'US', residential_address: true)
+
+      expect(address.to_xml.locate('ResidentialAddressIndicator')).wont_equal([])
+    end
+  end
 end
