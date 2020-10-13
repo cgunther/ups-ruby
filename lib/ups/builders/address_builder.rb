@@ -125,10 +125,10 @@ module UPS
       # @return [Ox::Element] XML representation of the current object
       def to_xml
         Element.new('Address').tap do |address|
-          address << address_line_1
+          address << address_line_1 if opts[:address_line_1]
           address << address_line_2
           address << email_address if opts[:email_address]
-          address << city
+          address << city if opts[:city]
           address << state
           address << postal_code
           address << country

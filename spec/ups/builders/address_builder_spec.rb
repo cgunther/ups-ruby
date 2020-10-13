@@ -128,4 +128,16 @@ describe UPS::Builders::AddressBuilder do
       expect(address.to_xml.locate('ResidentialAddressIndicator')).wont_equal([])
     end
   end
+
+  it 'treats address_line_1 as optional' do
+    organisation = UPS::Builders::AddressBuilder.new(city: 'Mountain View', state: 'California', postal_code: '94043', country: 'US')
+
+    expect(organisation.to_xml.locate('AddressLine1')).must_equal([])
+  end
+
+  it 'treats city as optional' do
+    organisation = UPS::Builders::AddressBuilder.new(address_line_1: 'Googleplex', state: 'California', postal_code: '94043', country: 'US')
+
+    expect(organisation.to_xml.locate('City')).must_equal([])
+  end
 end
